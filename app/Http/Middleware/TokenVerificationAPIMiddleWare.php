@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use JWTToken;
+use App\Helper\JWTToken;
 use Symfony\Component\HttpFoundation\Response;
 
 class TokenVerificationAPIMiddleWare

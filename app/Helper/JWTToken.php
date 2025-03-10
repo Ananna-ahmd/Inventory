@@ -1,5 +1,7 @@
 <?php
+namespace App\Helper;
 use Exception;
+
 use Firebase\JWT\JWT;
 class JWTToken{
     public static function CreateToken($user_id, $user_email):string{
