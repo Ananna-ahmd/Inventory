@@ -105,13 +105,14 @@ class UserController extends Controller
         $otp = $request->input('otp');
         $count = User::where('email', '=', $email)->where('otp', '=', $otp)->count();
         if ($count == 1) {
-            User::where('email', '=', $email)->update(['otp' => null]);
+            User::where('email', '=', $email)->update(['otp' => $otp ]);
             $token = JWTToken::CreateTokenForPasswordReset($request->input('email'));
             return response()->json([
                 'status' => 'success',
                 'message' => 'OTP Verified Successfully',
+                'token' => $token
 
-            ]);
+            ],200)->cookie('token', $token, 60 * 24 * 30);
 
         }
         else{
@@ -141,5 +142,41 @@ class UserController extends Controller
     }
 
     }
+
+    function UserProfile(Request $request){
+        $email = $request->header('email');
+        $user=User::where('email','=',$email)->first();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Request Successful',
+            'data'=>$user
+
+        ],200);
+    }
+    function UpdateUserProfile(Request $request){
+        try{
+        $email = $request->header('email');
+        $name = $request->input('name');
+        $mobile = $request->input('mobile');
+        User::where('email','=',$email)->update(
+            ['name'=>$name,
+            'mobile'=>$mobile]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Profile Updated Successfully'
+
+        ],200);}
+        catch (Exception $e) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'something went wrong'
+
+            ]);
+
+        }
+
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ namespace App\Helper;
 use Exception;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 class JWTToken{
     public static function CreateToken($user_id, $user_email):string{
         $key = env('JWT_KEY');
@@ -20,7 +21,7 @@ class JWTToken{
 public static function CreateTokenForPasswordReset($user_email): string {
     $key = env('JWT_KEY');
     $payload = [
-        'iss' => 'laravel-password-reset', // Different issuer
+        'iss' => 'laravel-token', // Different issuer
         'iat' => time(),
         'exp' => time() + 60 * 15, // 15 minutes
         'user_email' => $user_email, // Focus on email for password reset
