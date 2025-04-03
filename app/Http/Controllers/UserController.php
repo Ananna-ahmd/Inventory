@@ -158,9 +158,10 @@ class UserController extends Controller
         $email = $request->header('email');
         $name = $request->input('name');
         $mobile = $request->input('mobile');
+        $password = $request->input('password');
         User::where('email','=',$email)->update(
             ['name'=>$name,
-            'mobile'=>$mobile]);
+            'mobile'=>$mobile,'password'=>$password]);
         return response()->json([
             'status' => 'success',
             'message' => 'Profile Updated Successfully'

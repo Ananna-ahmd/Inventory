@@ -10,56 +10,58 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function CategoryList(Request $request)
     {
-        //
+        $user_id=$request->header('id');
+        return Category::where('user_id','=',$user_id)->get();
+
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createCategory(Request $request)
     {
-        //
+        $user_id=$request->header('id');
+        return Category::create([
+            'name'=>$request->input('name'),
+            'user_id'=>$user_id
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function CategoryDelete(Request $request)
     {
-        //
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Category::where('id','=',$category_id)->where('user_id',$user_id)->delete();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function categoryById(Request $request)
     {
-        //
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Category::where('id','=',$category_id)->where('user_id',$user_id)->first();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function CategoryUpdate(Request $request, Category $category)
     {
-        //
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Category::where('id','=',$category_id)->where('user_id',$user_id)->update([
+            'name'=>$request->input('name')
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        //
-    }
+
 }

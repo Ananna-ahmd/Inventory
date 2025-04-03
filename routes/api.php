@@ -4,12 +4,29 @@ use App\Http\Middleware\TokenVerificationAPIMiddleWare;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 
+//user
 Route::post('/user-registration', [UserController::class, 'UserRegistration']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
 Route::post('/logout', [UserController::class, 'UserLogout']);
 Route::post('/send-otp', [UserController::class, 'SendOTPCode']);
 Route::post('/verify-otp', [UserController::class, 'VerifyOTP']);
-Route::post('/reset-password', [UserController::class, 'ResetPassword'])->middleware([TokenVerificationAPIMiddleWare::class]);
-Route::get('/user', [UserController::class, 'UserProfile'])->middleware([TokenVerificationAPIMiddleWare::class]);
-Route::PUT('/user-update', [UserController::class, 'UpdateUserProfile'])->middleware([TokenVerificationAPIMiddleWare::class]);
+Route::post('/reset-password', [UserController::class, 'ResetPassword']);
+Route::get('/user', [UserController::class, 'UserProfile']);
+Route::PUT('/user-update', [UserController::class, 'UpdateUserProfile']);
+
+//category
+Route::post('/category-add', [CategoryController::class, 'createCategory']);
+Route::get('/category-list', [CategoryController::class, 'CategoryList']);
+Route::get('/category-by-id', [CategoryController::class, 'categoryById']);
+Route::PUT('/category-update', [CategoryController::class, 'CategoryUpdate']);
+Route::post('/category-delete', [CategoryController::class, 'CategoryDelete']);
+
+//customer
+Route::post('/customer-add', [CustomerController::class, 'CustomerCreate']);
+Route::get('/customer-list', [CustomerController::class, 'CustomerList']);
+Route::get('/customer-by-id', [CustomerController::class, 'CustomerById']);
+Route::PUT('/customer-update', [CustomerController::class, 'CustomerUpdate']);
+Route::post('/customer-delete', [CustomerController::class, 'CustomerDelete']);
