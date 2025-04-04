@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 
 
 route::get('/', function () {
@@ -34,3 +35,9 @@ Route::get('/customer-by-id', [CustomerController::class, 'CustomerById']);
 Route::PUT('/customer-update', [CustomerController::class, 'CustomerUpdate']);
 Route::post('/customer-delete', [CustomerController::class, 'CustomerDelete']);
 
+//product
+Route::post('/product-add', [ProductController::class, 'CreateProduct']);
+Route::get('/product-list', [ProductController::class, 'ProductList']);
+Route::get('/product-by-id', [ProductController::class, 'ProductById']);
+Route::PUT('/product-update', [ProductController::class, 'UpdateProduct']);
+Route::post('/product-delete', [ProductController::class, 'DeleteProduct']);

@@ -7,59 +7,57 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+
+    public function CreateProduct(Request $request)
     {
-        //
+        $user_id=$request->header('id');
+        return Product::create([
+            'name'=>$request->input('name'),
+            'price'=>$request->input('price'),
+            'unit'=>$request->input('unit'),
+            'category_id'=>$request->input('category_id'),
+            'user_id'=>$user_id
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function DeleteProduct(Request $request)
     {
-        //
+        $product_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Product::where('id','=',$product_id)->where('user_id',$user_id)->delete();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function ProductList(Request $request,Product $product)
     {
-        //
+        $user_id=$request->header('id');
+        return Product::where('user_id','=',$user_id)->get();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function ProductById(Request $request,Product $product)
     {
-        //
+        $product_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Product::where('id','=',$product_id)->where('user_id',$user_id)->first();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
+
+    public function UpdateProduct(Request $request, Product $product)
     {
-        //
+        $user_id=$request->header('id');
+        $product_id=$request->input('id');
+        return Product::where('id','=',$product_id)->where('user_id','=',$user_id)->update([
+            'name'=>$request->input('name'),
+            'price'=>$request->input('price'),
+            'unit'=>$request->input('unit'),
+            'category_id'=>$request->input('category_id'),
+
+
+        ]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
 }
