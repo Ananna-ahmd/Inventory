@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use App\Http\Middleware\TokenVerificationAPIMiddleWare;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+
+
 
 //user
 Route::post('/user-registration', [UserController::class, 'UserRegistration']);
@@ -39,4 +42,10 @@ Route::get('/product-list', [ProductController::class, 'ProductList']);
 Route::get('/product-by-id', [ProductController::class, 'ProductById']);
 Route::PUT('/product-update', [ProductController::class, 'UpdateProduct']);
 Route::post('/product-delete', [ProductController::class, 'DeleteProduct']);
+
+//invoice
+Route::post('/invoice-add', [InvoiceController::class, 'CreateInvoice']);
+Route::get('/invoice-select', [InvoiceController::class, 'invoiceSelect']);
+Route::get('/invoice-details', [InvoiceController::class, 'InvoiceDetails']);
+Route::post('/invoice-delete', [InvoiceController::class, 'DeleteInvoice']);
 
