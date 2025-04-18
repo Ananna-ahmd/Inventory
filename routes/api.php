@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DashboardController;
+
 
 
 
@@ -48,4 +50,7 @@ Route::post('/invoice-add', [InvoiceController::class, 'CreateInvoice']);
 Route::get('/invoice-select', [InvoiceController::class, 'invoiceSelect']);
 Route::get('/invoice-details', [InvoiceController::class, 'InvoiceDetails']);
 Route::post('/invoice-delete', [InvoiceController::class, 'DeleteInvoice']);
+
+//Dashboard
+Route::get('/summary', [DashboardController::class, 'summary']);
 
